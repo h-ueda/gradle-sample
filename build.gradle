@@ -42,7 +42,7 @@ def getTomcatHome() {
     return d == null ? '' : d;
 }
 
-task copyWar(type: Copy, dependsOn: war) {
+task copyWar(type: Copy) {
     from 'build/libs'
     include 'gradle-sample.war'
     into getTomcatHome() + '/webapps'
