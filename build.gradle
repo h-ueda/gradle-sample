@@ -50,12 +50,16 @@ task copyWar(type: Copy) {
 
 task shutdown() {
 	ProcessBuilder pb = new ProcessBuilder('cmd', '/C', 'shutdown.bat')
-	pb.directory(file(getTomcatHome() + '/bin'))
-    pb.start()
+	if (getTomcatHome() != '') {
+		pb.directory(file(getTomcatHome() + '/bin'))
+	    pb.start()
+    }
 }
 
 task start() {
     ProcessBuilder pb = new ProcessBuilder('cmd', '/C', 'startup.bat')
-    pb.directory(file(getTomcatHome() + '/bin'))
-    pb.start()
+	if (getTomcatHome() != '') {
+	    pb.directory(file(getTomcatHome() + '/bin'))
+	    pb.start()
+    }
 }
