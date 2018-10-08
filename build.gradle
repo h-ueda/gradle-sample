@@ -37,8 +37,24 @@ dependencies {
     // testImplementation 'junit:junit:4.12'
 }
 
-task startTomcat(type: Exec) {
-    String f = file('/dev/pleiades/pleiades/tomcat/9/bin/startup.bat')
-    executable f
-    args ''
+def getTomcatHome() {
+    return System.getProperty('tomcat.home');
+}
+
+task copyWar(type: Copy, dependsOn: war) {
+    from 'build/libs'
+    include 'gradle-sample.war'
+    into getTomcatHome() + '/webapps'
+}
+
+task shutdown() {
+	ProcessBuilder pb = new ProcessBuilder('cmd', '/C', 'shutdown.bat')
+	pb.directory(file(getTomcatHome() + '/bin'))
+    pb.start()
+}
+
+task start() {
+    ProcessBuilder pb = new ProcessBuilder('cmd', '/C', 'startup.bat')
+    pb.directory(file(getTomcatHome() + '/bin'))
+    pb.start()
 }
