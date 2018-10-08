@@ -38,7 +38,8 @@ dependencies {
 }
 
 def getTomcatHome() {
-    return System.getProperty('tomcat.home');
+    String d = System.getProperty('tomcat.home')
+    return d == null ? '' : d;
 }
 
 task copyWar(type: Copy, dependsOn: war) {
